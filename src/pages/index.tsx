@@ -2,10 +2,6 @@ import React from 'react';
 
 import Layout from '../components/layout';
 
-const Index: React.FC = () => (
-  <Layout>
-    <h1>Home page</h1>
-  </Layout>
-);
+const Index: React.FC = () => <Layout title="Biofab.blog"></Layout>;
 
 export default Index;
