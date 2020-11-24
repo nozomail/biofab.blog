@@ -28,6 +28,13 @@ module.exports = {
         display: `minimal-ui`,
       },
     },
+    {
+      resolve: 'gatsby-background-image',
+      options: {
+        // add your own characters to escape, replacing the default ':/'
+        specialChars: '/:',
+      },
+    },
     `gatsby-plugin-typescript`,
     {
       resolve: 'gatsby-plugin-eslint',
