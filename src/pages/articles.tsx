@@ -39,13 +39,13 @@ const Blog: React.FC = () => {
 
   return (
     <Layout title="Articles">
-      <ul className="max-w-screen-lg mx-auto">
+      <ul>
         {data.allContentfulBlogPost.edges.map((edge: edgeProps) => {
           return (
             <li key={edge.node.id} className="border-b border-gray-200">
               <Link
                 to={`/blog/${edge.node.slug}/`}
-                className="flex items-start p-6"
+                className="flex items-start py-6"
               >
                 <Img
                   fluid={edge.node.mainImage.fluid}
@@ -55,10 +55,10 @@ const Blog: React.FC = () => {
                 <div className="flex-grow ml-8">
                   <div className="flex justify-between mb-4">
                     <div className="flex">
-                      <div className="text-xs text-white py-1 px-2 mr-2 bg-lightBlue-400">
+                      <div className="text-xs text-white py-1 px-2 mr-2 bg-blue-400">
                         Tag1
                       </div>
-                      <div className="text-xs text-white py-1 px-2 mr-2 bg-green-400">
+                      <div className="text-xs text-white py-1 px-2 mr-2 bg-blue-400">
                         Tagtag2
                       </div>
                     </div>
