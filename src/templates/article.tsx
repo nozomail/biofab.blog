@@ -30,9 +30,8 @@ type dataProps = {
 
 const BlogPost: React.FC<dataProps> = ({ data }) => {
   return (
-    <Layout>
-      <h1>Blog page</h1>
-      <Link to="/blog/">Visit the Blog Page</Link>
+    <Layout title={data.contentfulBlogPost.title} isArticle>
+      <Link to="/articles">Article List</Link>
       <div className="content">
         <h1>{data.contentfulBlogPost.title}</h1>
         <div className="meta">
