@@ -46,13 +46,13 @@ const Header: React.FC<Props> = ({ dark = false }) => {
         <ul
           className={`${
             dark ? 'text-white' : 'text-gray-400'
-          } flex h-full items-center text-sm tracking-wider`}
+          } flex h-full items-center text-md tracking-wider`}
         >
           {categories.allContentfulBlogCategory.edges.map(
             (edge: categoryProps) => {
               return (
                 <li className="ml-8" key={edge.node.id}>
-                  <Link to={`/blog/${edge.node.slug}/`}>{edge.node.name}</Link>
+                  <Link to={`/${edge.node.slug}/`}>{edge.node.name}</Link>
                 </li>
               );
             }
