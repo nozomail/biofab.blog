@@ -10,6 +10,9 @@ type articleProps = {
     id: string;
     title: string;
     slug: string;
+    category: {
+      slug: string;
+    };
     publishedDate: string;
     mainImage: {
       fluid: FluidObject;
@@ -37,9 +40,12 @@ const Index: React.FC = () => {
       ) {
         edges {
           node {
-            slug
             id
             title
+            slug
+            category {
+              slug
+            }
             publishedDate(formatString: "DD MMM, YYYY")
             mainImage {
               fluid(maxWidth: 160) {
@@ -67,9 +73,6 @@ const Index: React.FC = () => {
       }
     }
   `);
-
-  console.log('articles', articles);
-  console.log('categories', categories);
 
   return (
     <div>
@@ -99,7 +102,7 @@ const Index: React.FC = () => {
                 className="border-b border-gray-100 p-2 pl-0"
               >
                 <Link
-                  to={`/blog/${edge.node.slug}/`}
+                  to={`/${edge.node.category.slug}/${edge.node.slug}/`}
                   className="flex items-center text-md font-light"
                 >
                   <Img
@@ -130,7 +133,7 @@ const Index: React.FC = () => {
               >
                 <div className="bg-blue-600 opacity-50 absolute inset-0"></div>
                 <Link
-                  to={`/blog/${edge.node.slug}/`}
+                  to={`/${edge.node.slug}/`}
                   className="text-3xl text-white font-normal tracking-wide absolute inset-0 flex items-center justify-center text-center p-4"
                 >
                   {edge.node.name}
