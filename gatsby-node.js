@@ -19,6 +19,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             slug
             name
+            order
           }
         }
       }
@@ -42,6 +43,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         slug: category.node.slug,
         name: category.node.name,
+        order: category.node.order,
       },
     });
   });

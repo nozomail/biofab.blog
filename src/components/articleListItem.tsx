@@ -2,12 +2,20 @@ import React from 'react';
 import { Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 
+const tagColors = [
+  'bg-pink-400',
+  'bg-blue-400',
+  'bg-green-400',
+  'bg-lightBlue-400',
+];
+
 type Props = {
   title: string;
   slug: string;
   category: {
     slug: string;
   };
+  color: number;
   publishedDate: string;
   mainImage: {
     fluid: FluidObject;
@@ -18,6 +26,7 @@ const ArticleListItem: React.FC<Props> = ({
   title,
   slug,
   category,
+  color,
   publishedDate,
   mainImage,
 }) => {
@@ -32,10 +41,14 @@ const ArticleListItem: React.FC<Props> = ({
         <div className="flex-grow ml-8">
           <div className="flex justify-between mb-4">
             <div className="flex">
-              <div className="text-xs text-white py-1 px-2 mr-2 bg-green-400">
+              <div
+                className={`${tagColors[color]} text-xs text-white py-1 px-2 mr-2`}
+              >
                 Tag1
               </div>
-              <div className="text-xs text-white py-1 px-2 mr-2 bg-green-400">
+              <div
+                className={`${tagColors[color]} text-xs text-white py-1 px-2 mr-2`}
+              >
                 Tagtag2
               </div>
             </div>

@@ -29,6 +29,9 @@ const Blog: React.FC = () => {
             id
             title
             slug
+            category {
+              slug
+            }
             publishedDate(formatString: "DD MMM, YYYY")
             mainImage {
               fluid(maxWidth: 750) {
@@ -42,10 +45,12 @@ const Blog: React.FC = () => {
   `);
 
   return (
-    <Layout title="All articles">
+    <Layout title="All articles" color={1}>
       <ul>
         {data.allContentfulBlogPost.edges.map((edge: edgeProps) => {
-          return <ArticleListItem {...edge.node} key={edge.node.id} />;
+          return (
+            <ArticleListItem {...edge.node} key={edge.node.id} color={1} ca />
+          );
         })}
       </ul>
     </Layout>
