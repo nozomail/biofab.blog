@@ -4,6 +4,10 @@ import Img, { FluidObject } from 'gatsby-image';
 import BackgroundImg, { IFluidObject } from 'gatsby-background-image';
 
 import Header from '../components/header';
+import Footer from '../components/footer';
+
+import Twitter from '../images/twitter.svg';
+import LinkedIn from '../images/linkedIn.svg';
 
 type articleProps = {
   node: {
@@ -90,11 +94,11 @@ const Index: React.FC = () => {
         </div>
       </div>
 
-      <section className="py-20 px-8">
+      <section className="max-w-screen-md mx-auto py-20 px-8">
         <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-6">
           LATEST ARTICLES
         </h2>
-        <ul className="max-w-screen-md mx-auto">
+        <ul>
           {articles.edges.map((edge: articleProps) => {
             return (
               <li
@@ -118,7 +122,7 @@ const Index: React.FC = () => {
         </ul>
       </section>
 
-      <section className=" bg-green-100 py-20 px-8">
+      <section className="bg-green-200 py-20 px-8">
         <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-12">
           WHERE TO START
         </h2>
@@ -143,6 +147,93 @@ const Index: React.FC = () => {
           })}
         </ul>
       </section>
+
+      <section className="max-w-screen-md mx-auto py-20 px-8">
+        <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-12">
+          AUTHOR
+        </h2>
+        <div className="flex items-start">
+          <div className="mr-8 text-md font-light leading-7">
+            <p>Hi I’m Matt, a PhD candidate at the University of Melbourne.</p>
+            <p className="mt-4">
+              I have devoted the last 5 years to tissue engineering,
+              biofabrication, and biomaterials engineering. In 2016 I received a
+              Master’s in materials science from Osaka University, before
+              working for CELLINK as a scientific applications specialist. Over
+              the past two years I have attended dozens of academic conferences,
+              including as a keynote speaker, and I have worked with researchers
+              to develop bioprinting systems.
+            </p>
+            <p className="mt-4">
+              This blog is a chronicle of my thoughts, with the aim of helping
+              aspiring researchers get into biofabrication. I hope you find
+              something that interests you!
+            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <img src="https://placehold.jp/240x240.png" alt="" />
+            <div className="flex justify-end mt-6">
+              <a href="" target="_blank">
+                <img className="w-10" src={Twitter} alt="Twitter" />
+              </a>
+              <a href="" target="_blank">
+                <img className="w-10 ml-2" src={LinkedIn} alt="LinkedIn" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-pink-100 py-20 px-8">
+        <h2 className="text-lg font-semibold text-pink-300 tracking-wider text-center mb-6">
+          GET IN TOUCH
+        </h2>
+        <form action="" className="max-w-sm mx-auto">
+          <div>
+            <label htmlFor="name" className="text-sm">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              required
+              className="block h-10 w-full border border-gray-200 focus:outline-none focus:border-pink-300 py-2 px-3"
+            />
+          </div>
+          <div className="mt-4">
+            <label htmlFor="email" className="text-sm">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              required
+              className="block h-10 w-full border border-gray-200 focus:outline-none focus:border-pink-300 py-2 px-3"
+            />
+          </div>
+          <div className="mt-4">
+            <label htmlFor="message" className="text-sm">
+              Message
+            </label>
+            <textarea
+              id="message"
+              rows={8}
+              required
+              className="block w-full border border-gray-200  focus:outline-none focus:border-pink-300 py-2 px-3 resize-none"
+            ></textarea>
+          </div>
+          <div className="flex justify-center py-8">
+            <button
+              type="submit"
+              className="block w-full bg-pink-300 text-lg text-white py-2 px-4"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <Footer />
     </div>
   );
 };
