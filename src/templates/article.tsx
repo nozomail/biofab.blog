@@ -40,7 +40,7 @@ const BlogPost: React.FC<dataProps> = ({ data }) => {
   return (
     <Layout
       title={data.contentfulBlogPost.title}
-      color={data.contentfulBlogPost.category.order % 4}
+      color={data.contentfulBlogPost.category.order % 5}
     >
       <Link to="/articles">Article List</Link>
       <div className="content">

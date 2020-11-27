@@ -3,10 +3,11 @@ import { Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 
 const tagColors = [
-  'bg-pink-400',
+  'bg-pink-300',
   'bg-blue-400',
-  'bg-green-400',
   'bg-lightBlue-400',
+  'bg-green-400',
+  'bg-gray-300',
 ];
 
 type Props = {

@@ -61,14 +61,14 @@ type dataProps = {
 
 const Blog: React.FC<dataProps> = ({ data, pageContext }) => {
   return (
-    <Layout title={pageContext.name} color={pageContext.order % 4}>
+    <Layout title={pageContext.name} color={pageContext.order % 5}>
       <ul>
         {data.allContentfulBlogPost.edges.map((edge: edgeProps) => {
           return (
             <ArticleListItem
               {...edge.node}
               key={edge.node.id}
-              color={pageContext.order % 4}
+              color={pageContext.order % 5}
             />
           );
         })}
