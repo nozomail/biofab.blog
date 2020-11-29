@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans&display=swap');
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
@@ -12,4 +12,33 @@ button {
 a:hover,
 button:hover {
   opacity: 0.6;
+}
+
+ul.list-disc,
+ol.list-decimal {
+  padding-left: 1.25em;
+}
+
+q {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  @apply max-w-screen-sm;
+}
+
+q::before {
+  content: '“';
+  font-family: 'Work Sans';
+  font-size: 4em;
+  position: absolute;
+  @apply text-green-300 top-2 left-4;
+}
+
+q::after {
+  content: '';
+}
+
+q > div {
+  margin-top: 0 auto !important;
+  @apply max-w-screen-sm bg-green-100 py-8 px-10;
 }

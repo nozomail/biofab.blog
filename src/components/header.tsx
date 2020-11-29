@@ -3,6 +3,7 @@ import { useStaticQuery, graphql, Link } from 'gatsby';
 
 type Props = {
   dark?: boolean;
+  category?: string;
 };
 
 type categoryProps = {
@@ -13,7 +14,15 @@ type categoryProps = {
   };
 };
 
-const Header: React.FC<Props> = ({ dark = false }) => {
+const colors = [
+  'pink-300',
+  'blue-300',
+  'lightBlue-300',
+  'green-300',
+  'gray-300',
+];
+
+const Header: React.FC<Props> = ({ category, dark = false }) => {
   const categories = useStaticQuery(graphql`
     query {
       allContentfulBlogCategory(sort: { order: ASC, fields: order }) {
@@ -49,10 +58,23 @@ const Header: React.FC<Props> = ({ dark = false }) => {
           } flex h-full items-center text-md tracking-wider`}
         >
           {categories.allContentfulBlogCategory.edges.map(
-            (edge: categoryProps) => {
+            (edge: categoryProps, index: number) => {
               return (
                 <li className="ml-8" key={edge.node.id}>
-                  <Link to={`/${edge.node.slug}/`}>{edge.node.name}</Link>
+                  <Link
+                    to={`/${edge.node.slug}/`}
+                    className={
+                      category === edge.node.slug
+                        ? `text-${
+                            colors[(index + 1) % 5]
+                          } font-semibold border-b border-${
+                            colors[(index + 1) % 5]
+                          }`
+                        : ''
+                    }
+                  >
+                    {edge.node.name}
+                  </Link>
                 </li>
               );
             }

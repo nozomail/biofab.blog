@@ -12,9 +12,9 @@ const bgColors = [
 ];
 const textColors = [
   'text-pink-300',
-  'text-blue-400',
-  'text-lightBlue-400',
-  'text-green-400',
+  'text-blue-300',
+  'text-lightBlue-300',
+  'text-green-300',
   'text-gray-300',
 ];
 

@@ -1,18 +1,20 @@
-import React from 'react';
+/* eslint-disable react/display-name */
+import React, { ReactNode } from 'react';
 import { graphql, Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
+import {
+  MARKS,
+  BLOCKS,
+  INLINES,
+  Block,
+  Inline,
+} from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
-
-const colors = [
-  'pink-300',
-  'blue-300',
-  'lightBlue-300',
-  'green-300',
-  'gray-300',
-];
 
 export const query = graphql`
   query($slug: String!) {
@@ -20,6 +22,7 @@ export const query = graphql`
       title
       category {
         name
+        slug
         order
       }
       publishedDate(formatString: "DD MMMM, YYYY")
@@ -55,6 +58,72 @@ type dataProps = {
   };
 };
 
+const options = {
+  renderMark: {
+    [MARKS.BOLD]: (text: ReactNode): ReactNode => (
+      <strong className="font-bold">{text}</strong>
+    ),
+    [MARKS.ITALIC]: (text: ReactNode): ReactNode => (
+      <em className="italic">{text}</em>
+    ),
+    [MARKS.UNDERLINE]: (text: ReactNode): ReactNode => <u>{text}</u>,
+    [MARKS.CODE]: (text: ReactNode): ReactNode => (
+      <SyntaxHighlighter language="gcode" style={github}>
+        {text}
+      </SyntaxHighlighter>
+    ),
+  },
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (
+      node: Block | Inline,
+      children: ReactNode
+    ): ReactNode => (
+      <div className="mt-4 text-md font-light leading-relaxed">{children}</div>
+    ),
+    [BLOCKS.HEADING_1]: (
+      node: Block | Inline,
+      children: ReactNode
+    ): ReactNode => (
+      <h2 className="text-2xl font-semibold mt-20">{children}</h2>
+    ),
+    [BLOCKS.HEADING_2]: (
+      node: Block | Inline,
+      children: ReactNode
+    ): ReactNode => <h3 className="text-xl font-semibold mt-10">{children}</h3>,
+    [BLOCKS.HEADING_3]: (
+      node: Block | Inline,
+      children: ReactNode
+    ): ReactNode => <h4 className="text-md font-semibold mt-8">{children}</h4>,
+    [BLOCKS.HR]: () => <hr className="my-8" />,
+    [BLOCKS.UL_LIST]: (node: Block | Inline, children: ReactNode) => (
+      <ul className="list-disc">
+        {children && children.map((child: ReactNode) => child)}
+      </ul>
+    ),
+    [BLOCKS.OL_LIST]: (node: Block | Inline, children: ReactNode) => (
+      <ol className="list-decimal">
+        {children && children.map((child: ReactNode) => child)}
+      </ol>
+    ),
+    [BLOCKS.QUOTE]: (node: Block | Inline, children: ReactNode): ReactNode => (
+      <q className="text-2xl font-semibold mt-8">{children}</q>
+    ),
+    [INLINES.HYPERLINK]: (
+      node: Block | Inline,
+      children: ReactNode
+    ): ReactNode => (
+      <a
+        className="text-green-400 border-b border-green-400"
+        href={node.data.uri}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ),
+  },
+};
+
 const BlogPost: React.FC<dataProps> = ({ data }) => {
   const {
     title,
@@ -64,35 +133,29 @@ const BlogPost: React.FC<dataProps> = ({ data }) => {
     body,
   } = data.contentfulBlogPost;
 
-  console.log(body.raw);
   return (
     <div>
       <div className="pt-2 pb-8 px-8">
-        <Header />
-        <div className="text-center">
+        <Header category={category.slug} />
+        <div className="text-center mt-8 mb-4">
           <h1
-            className={`max-w-screen-lg mx-auto text-4xl leading-normal font-serif mt-6 mb-4`}
+            className={`max-w-screen-lg mx-auto text-4xl leading-normal font-serif mb-4`}
           >
             {title}
           </h1>
-          <Link
-            to={`/${category.slug}`}
-            className={`text-${colors[category.order % 5]} border-b border-${
-              colors[category.order % 5]
-            } font-normal pb-1`}
-          >
-            {category.name}
-          </Link>
+          <span className="text-sm font-light">Updated on {publishedDate}</span>
         </div>
       </div>
       <div>
         <Img fluid={mainImage.fluid} alt={title} className="h-80" />
 
-        <div className="py-8 px-8">
-          <div className="text-sm mb-4 text-right">{publishedDate}</div>
-          {documentToReactComponents(JSON.parse(body.raw))}
-          <div className="mt-4">
-            <Link to="/articles" className="border-b pb-1">
+        <div className="max-w-screen-lg mx-auto py-8 px-8">
+          {documentToReactComponents(JSON.parse(body.raw), options)}
+          <div className="mt-20 text-center">
+            <Link
+              to="/articles"
+              className="text-pink-300 border-b border-pink-300"
+            >
               See all articles
             </Link>
           </div>

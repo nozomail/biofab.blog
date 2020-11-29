@@ -172,12 +172,12 @@ const Index: React.FC = () => {
           </div>
           <div className="flex-shrink-0">
             <img src="https://placehold.jp/240x240.png" alt="" />
-            <div className="flex justify-end mt-6">
+            <div className="flex justify-center mt-4">
               <a href="" target="_blank">
-                <img className="w-10" src={Twitter} alt="Twitter" />
+                <img className="h-6" src={Twitter} alt="Twitter" />
               </a>
               <a href="" target="_blank">
-                <img className="w-10 ml-2" src={LinkedIn} alt="LinkedIn" />
+                <img className="h-6 ml-4" src={LinkedIn} alt="LinkedIn" />
               </a>
             </div>
           </div>
