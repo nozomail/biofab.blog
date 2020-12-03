@@ -31,7 +31,8 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/${edge.node.category.slug}/${edge.node.slug}`,
       component: path.resolve('./src/templates/article.tsx'),
       context: {
-        slug: edge.node.slug,
+        post: edge.node.slug,
+        category: edge.node.category.slug,
       },
     });
   });

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
-import BackgroundImg, { IFluidObject } from 'gatsby-background-image';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
+import CategoryList from '../components/categoryList';
 
 import Twitter from '../images/twitter.svg';
 import LinkedIn from '../images/linkedIn.svg';
@@ -24,21 +24,10 @@ type articleProps = {
   };
 };
 
-type categoryProps = {
-  node: {
-    id: string;
-    name: string;
-    slug: string;
-    image: {
-      fluid: IFluidObject;
-    };
-  };
-};
-
 const Index: React.FC = () => {
-  const { articles, categories } = useStaticQuery(graphql`
+  const { allContentfulBlogPost } = useStaticQuery(graphql`
     query {
-      articles: allContentfulBlogPost(
+      allContentfulBlogPost(
         limit: 3
         sort: { order: DESC, fields: publishedDate }
       ) {
@@ -59,22 +48,6 @@ const Index: React.FC = () => {
           }
         }
       }
-      categories: allContentfulBlogCategory(
-        sort: { order: ASC, fields: order }
-      ) {
-        edges {
-          node {
-            name
-            slug
-            id
-            image {
-              fluid(maxWidth: 750) {
-                ...GatsbyContentfulFluid
-              }
-            }
-          }
-        }
-      }
     }
   `);
 
@@ -86,7 +59,7 @@ const Index: React.FC = () => {
           <span className="block py-2 text-5xl leading-tight text-blue-400">
             Unbiased Report
             <br />
-            on <span className="text-pink-300">Biofabrication</span>
+            on <span className="text-pink-400">Biofabrication</span>
           </span>
           <span className="block py-2 text-3xl italic text-blue-300">
             for beginners to advanced
@@ -99,7 +72,7 @@ const Index: React.FC = () => {
           LATEST ARTICLES
         </h2>
         <ul>
-          {articles.edges.map((edge: articleProps) => {
+          {allContentfulBlogPost.edges.map((edge: articleProps) => {
             return (
               <li
                 key={edge.node.id}
@@ -122,30 +95,11 @@ const Index: React.FC = () => {
         </ul>
       </section>
 
-      <section className="bg-green-200 py-20 px-8">
+      <section className="bg-green-100 py-20 px-8">
         <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-12">
           WHERE TO START
         </h2>
-        <ul className="max-w-screen-lg mx-auto grid grid-cols-3 gap-8">
-          {categories.edges.map((edge: categoryProps) => {
-            return (
-              <BackgroundImg
-                Tag="li"
-                fluid={edge.node.image.fluid}
-                key={edge.node.id}
-                className="h-40 relative"
-              >
-                <div className="bg-blue-600 opacity-50 absolute inset-0"></div>
-                <Link
-                  to={`/${edge.node.slug}/`}
-                  className="text-3xl text-white font-normal tracking-wide absolute inset-0 flex items-center justify-center text-center p-4"
-                >
-                  {edge.node.name}
-                </Link>
-              </BackgroundImg>
-            );
-          })}
-        </ul>
+        <CategoryList />
       </section>
 
       <section className="max-w-screen-md mx-auto py-20 px-8">
@@ -185,7 +139,7 @@ const Index: React.FC = () => {
       </section>
 
       <section className="bg-pink-100 py-20 px-8">
-        <h2 className="text-lg font-semibold text-pink-300 tracking-wider text-center mb-6">
+        <h2 className="text-lg font-semibold text-pink-400 tracking-wider text-center mb-6">
           GET IN TOUCH
         </h2>
         <form action="" className="max-w-sm mx-auto">
@@ -197,7 +151,7 @@ const Index: React.FC = () => {
               id="name"
               type="text"
               required
-              className="block h-10 w-full border border-gray-200 focus:outline-none focus:border-pink-300 py-2 px-3"
+              className="block h-10 w-full border border-gray-200 focus:outline-none focus:border-pink-400 py-2 px-3"
             />
           </div>
           <div className="mt-4">
@@ -208,7 +162,7 @@ const Index: React.FC = () => {
               id="email"
               type="email"
               required
-              className="block h-10 w-full border border-gray-200 focus:outline-none focus:border-pink-300 py-2 px-3"
+              className="block h-10 w-full border border-gray-200 focus:outline-none focus:border-pink-400 py-2 px-3"
             />
           </div>
           <div className="mt-4">
@@ -219,13 +173,13 @@ const Index: React.FC = () => {
               id="message"
               rows={8}
               required
-              className="block w-full border border-gray-200  focus:outline-none focus:border-pink-300 py-2 px-3 resize-none"
+              className="block w-full border border-gray-200  focus:outline-none focus:border-pink-400 py-2 px-3 resize-none"
             ></textarea>
           </div>
           <div className="flex justify-center py-8">
             <button
               type="submit"
-              className="block w-full bg-pink-300 text-lg text-white py-2 px-4"
+              className="block w-full bg-pink-400 text-lg text-white py-2 px-4"
             >
               Send
             </button>

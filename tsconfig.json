@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "esnext",
+    "target": "ES5",
     "jsx": "preserve",
-    "lib": ["dom", "esnext"],
+    "lib": ["DOM", "ESNext", "ESNext.Array"],
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,

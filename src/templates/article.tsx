@@ -16,9 +16,14 @@ import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Header from '../components/header';
 import Footer from '../components/footer';
 
+import arrowLeft from '../images/left-arrow.svg';
+import arrowRight from '../images/right-arrow.svg';
+
+import { textColors, mdBgColors } from '../constants/colors';
+
 export const query = graphql`
-  query($slug: String!) {
-    contentfulBlogPost(slug: { eq: $slug }) {
+  query($post: String!, $category: String!) {
+    thisPost: contentfulBlogPost(slug: { eq: $post }) {
       title
       category {
         name
@@ -35,12 +40,28 @@ export const query = graphql`
         raw
       }
     }
+    allPosts: allContentfulBlogPost(
+      sort: { order: DESC, fields: publishedDate }
+      filter: { category: { slug: { eq: $category } } }
+    ) {
+      edges {
+        node {
+          slug
+          title
+          mainImage {
+            fluid(maxWidth: 750) {
+              ...GatsbyContentfulFluid
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
 type dataProps = {
   data: {
-    contentfulBlogPost: {
+    thisPost: {
       title: string;
       category: {
         name: string;
@@ -55,6 +76,21 @@ type dataProps = {
         raw: string;
       };
     };
+    allPosts: {
+      edges: {
+        node: {
+          slug: string;
+          title: string;
+          mainImage: {
+            fluid: FluidObject;
+          };
+        };
+      }[];
+    };
+  };
+  pageContext: {
+    post: string;
+    category: string;
   };
 };
 
@@ -106,7 +142,7 @@ const options = {
       </ol>
     ),
     [BLOCKS.QUOTE]: (node: Block | Inline, children: ReactNode): ReactNode => (
-      <q className="text-2xl font-semibold mt-8">{children}</q>
+      <q className="text-lg font-semibold my-8">{children}</q>
     ),
     [INLINES.HYPERLINK]: (
       node: Block | Inline,
@@ -124,14 +160,11 @@ const options = {
   },
 };
 
-const BlogPost: React.FC<dataProps> = ({ data }) => {
-  const {
-    title,
-    category,
-    publishedDate,
-    mainImage,
-    body,
-  } = data.contentfulBlogPost;
+const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
+  const { title, category, publishedDate, mainImage, body } = data.thisPost;
+  const posts = data.allPosts.edges;
+
+  const index = posts.findIndex((post) => post.node.slug === pageContext.post);
 
   return (
     <div>
@@ -146,21 +179,57 @@ const BlogPost: React.FC<dataProps> = ({ data }) => {
           <span className="text-sm font-light">Updated on {publishedDate}</span>
         </div>
       </div>
+
       <div>
         <Img fluid={mainImage.fluid} alt={title} className="h-80" />
-
-        <div className="max-w-screen-lg mx-auto py-8 px-8">
+        <div className="max-w-screen-lg mx-auto pt-8 py-20 px-8">
           {documentToReactComponents(JSON.parse(body.raw), options)}
-          <div className="mt-20 text-center">
-            <Link
-              to="/articles"
-              className="text-pink-300 border-b border-pink-300"
-            >
-              See all articles
-            </Link>
-          </div>
         </div>
       </div>
+
+      {(posts[index - 1] || posts[index + 1]) && (
+        <div className="max-w-screen-lg mx-auto py-20 flex">
+          <div className="w-full">
+            {posts[index - 1] && (
+              <Link
+                to={`/${category.slug}/${posts[index - 1].node.slug}/`}
+                className="block w-full bg-blue-200 py-6 pr-8 pl-16 bg-no-repeat bg-left bg-3rem"
+                style={{ backgroundImage: `url(${arrowLeft})` }}
+              >
+                <div className="text-xs text-white font-semibold tracking-wider mb-2">
+                  PREVIOUS ARTICLE
+                </div>
+                <div className="font-serif text-lg text-blue-400">
+                  {posts[index - 1].node.title}
+                </div>
+              </Link>
+            )}
+          </div>
+          <div className="w-full ml-8">
+            {posts[index + 1] && (
+              <Link
+                to={`/${category.slug}/${posts[index + 1].node.slug}/`}
+                className={`${
+                  mdBgColors[category.order % 5]
+                } block w-full py-6 pl-8 pr-16 bg-no-repeat bg-right bg-3rem`}
+                style={{ backgroundImage: `url(${arrowRight})` }}
+              >
+                <div className="text-xs text-white font-semibold tracking-wider mb-2">
+                  NEXT ARTICLE
+                </div>
+                <div
+                  className={`${
+                    textColors[category.order % 5]
+                  } font-serif text-lg`}
+                >
+                  {posts[index + 1].node.title}
+                </div>
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

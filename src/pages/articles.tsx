@@ -21,7 +21,7 @@ type edgeProps = {
 };
 
 const Blog: React.FC = () => {
-  const data = useStaticQuery(graphql`
+  const { allContentfulBlogPost } = useStaticQuery(graphql`
     query {
       allContentfulBlogPost(sort: { fields: publishedDate, order: DESC }) {
         edges {
@@ -47,7 +47,7 @@ const Blog: React.FC = () => {
   return (
     <Layout title="All articles" color={1}>
       <ul>
-        {data.allContentfulBlogPost.edges.map((edge: edgeProps) => {
+        {allContentfulBlogPost.edges.map((edge: edgeProps) => {
           return (
             <ArticleListItem {...edge.node} key={edge.node.id} color={1} ca />
           );
