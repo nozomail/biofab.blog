@@ -3,20 +3,7 @@ import React from 'react';
 import Header from './header';
 import Footer from './footer';
 
-const bgColors = [
-  'bg-pink-200',
-  'bg-blue-300',
-  'bg-lightBlue-300',
-  'bg-green-300',
-  'bg-gray-200',
-];
-const textColors = [
-  'text-pink-300',
-  'text-blue-300',
-  'text-lightBlue-300',
-  'text-green-300',
-  'text-gray-300',
-];
+import { textColors, mdBgColors } from '../constants/colors';
 
 type Props = {
   title: string;
@@ -26,7 +13,7 @@ type Props = {
 const Layout: React.FC<Props> = ({ title, color, children }) => {
   return (
     <div>
-      <div className={`${bgColors[color]} pt-2 pb-8 px-8`}>
+      <div className={`${mdBgColors[color]} pt-2 pb-8 px-8`}>
         <Header dark />
         <h1
           className={`${textColors[color]} max-w-screen-lg mx-auto text-5xl font-serif mt-6`}

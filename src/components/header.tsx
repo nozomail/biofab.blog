@@ -1,6 +1,8 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 
+import { textColors } from '../constants/colors';
+
 type Props = {
   dark?: boolean;
   category?: string;
@@ -14,16 +16,8 @@ type categoryProps = {
   };
 };
 
-const colors = [
-  'pink-300',
-  'blue-300',
-  'lightBlue-300',
-  'green-300',
-  'gray-300',
-];
-
 const Header: React.FC<Props> = ({ category, dark = false }) => {
-  const categories = useStaticQuery(graphql`
+  const { allContentfulBlogCategory } = useStaticQuery(graphql`
     query {
       allContentfulBlogCategory(sort: { order: ASC, fields: order }) {
         edges {
@@ -41,7 +35,7 @@ const Header: React.FC<Props> = ({ category, dark = false }) => {
     <header className="flex justify-between py-4">
       <div>
         <Link to="/" className="flex items-center">
-          <div className="w-8 h-8 rounded-full bg-pink-300"></div>
+          <div className="w-8 h-8 rounded-full bg-green-400"></div>
           <div
             className={`${
               dark ? 'text-white' : 'text-blue-600'
@@ -57,7 +51,7 @@ const Header: React.FC<Props> = ({ category, dark = false }) => {
             dark ? 'text-white' : 'text-gray-400'
           } flex h-full items-center text-md tracking-wider`}
         >
-          {categories.allContentfulBlogCategory.edges.map(
+          {allContentfulBlogCategory.edges.map(
             (edge: categoryProps, index: number) => {
               return (
                 <li className="ml-8" key={edge.node.id}>
@@ -66,9 +60,9 @@ const Header: React.FC<Props> = ({ category, dark = false }) => {
                     className={
                       category === edge.node.slug
                         ? `text-${
-                            colors[(index + 1) % 5]
+                            textColors[index % 5]
                           } font-semibold border-b border-${
-                            colors[(index + 1) % 5]
+                            textColors[index % 5]
                           }`
                         : ''
                     }
