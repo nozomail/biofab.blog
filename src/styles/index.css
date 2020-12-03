@@ -26,19 +26,23 @@ q {
   @apply max-w-screen-sm;
 }
 
-q::before {
-  content: '“';
+q::before,
+q::after {
   font-family: 'Work Sans';
   font-size: 4em;
   position: absolute;
-  @apply text-green-300 top-2 left-4;
+}
+
+q::before {
+  content: '“';
+  @apply text-green-300 top-6 left-4;
 }
 
 q::after {
-  content: '';
+  content: '”';
+  @apply text-green-300 bottom-0 right-4;
 }
 
 q > div {
-  margin-top: 0 auto !important;
-  @apply max-w-screen-sm bg-green-100 py-8 px-10;
+  @apply max-w-screen-sm bg-green-100 py-8 pl-14 pr-12;
 }
