@@ -25,12 +25,9 @@ type articleProps = {
 };
 
 const Index: React.FC = () => {
-  const { allContentfulBlogPost } = useStaticQuery(graphql`
+  const { allContentfulArticle } = useStaticQuery(graphql`
     query {
-      allContentfulBlogPost(
-        limit: 3
-        sort: { order: DESC, fields: updatedAt }
-      ) {
+      allContentfulArticle(limit: 3, sort: { order: DESC, fields: updatedAt }) {
         edges {
           node {
             id
@@ -59,7 +56,7 @@ const Index: React.FC = () => {
           <span className="block py-2 text-5xl leading-tight text-blue-400">
             Unbiased Report
             <br />
-            on <span className="text-pink-400">Biofabrication</span>
+            on <span className="text-green-400">Biofabrication</span>
           </span>
           <span className="block py-2 text-3xl italic text-blue-300">
             for beginners to advanced
@@ -72,7 +69,7 @@ const Index: React.FC = () => {
           LATEST ARTICLES
         </h2>
         <ul>
-          {allContentfulBlogPost.edges.map((edge: articleProps) => {
+          {allContentfulArticle.edges.map((edge: articleProps) => {
             return (
               <li
                 key={edge.node.id}

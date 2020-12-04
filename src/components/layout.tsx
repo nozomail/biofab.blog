@@ -7,16 +7,16 @@ import { textColors, mdBgColors } from '../constants/colors';
 
 type Props = {
   title: string;
-  color: number;
+  colorIndex: number;
 };
 
-const Layout: React.FC<Props> = ({ title, color, children }) => {
+const Layout: React.FC<Props> = ({ title, colorIndex, children }) => {
   return (
     <div>
-      <div className={`${mdBgColors[color]} pt-2 pb-8 px-8`}>
+      <div className={`${mdBgColors[colorIndex]} pt-2 pb-8 px-8`}>
         <Header dark />
         <h1
-          className={`text-${textColors[color]} max-w-screen-lg mx-auto text-5xl font-serif mt-6`}
+          className={`text-${textColors[colorIndex]} max-w-screen-lg mx-auto text-5xl font-serif mt-6`}
         >
           {title}
         </h1>

@@ -2,28 +2,42 @@ import React from 'react';
 import { Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 
-import { smBgColors } from '../constants/colors';
+import Tag from '../components/tag';
+
+import { textColors } from '../constants/colors';
 
 type Props = {
+  isCategoryList: boolean;
+  isTagList: boolean;
   title: string;
   slug: string;
   category: {
+    name: string;
     slug: string;
+    order: number;
   };
-  color: number;
   updatedAt: string;
   mainImage: {
     fluid: FluidObject;
   };
+  tags:
+    | {
+        id: string;
+        name: string;
+        slug?: string;
+      }[]
+    | null;
 };
 
 const ArticleListItem: React.FC<Props> = ({
+  isCategoryList,
+  isTagList,
   title,
   slug,
   category,
-  color,
   updatedAt,
   mainImage,
+  tags,
 }) => {
   return (
     <li className="border-b border-gray-200">
@@ -36,16 +50,21 @@ const ArticleListItem: React.FC<Props> = ({
         <div className="flex-grow ml-8">
           <div className="flex justify-between mb-4">
             <div className="flex">
-              <div
-                className={`${smBgColors[color]} text-xs text-white py-1 px-2 mr-2`}
-              >
-                Tag1
-              </div>
-              <div
-                className={`${smBgColors[color]} text-xs text-white py-1 px-2 mr-2`}
-              >
-                Tagtag2
-              </div>
+              {!isCategoryList && (
+                <div
+                  className={`text-${
+                    textColors[category.order % 5]
+                  } font-bold tracking-wider mr-4`}
+                >
+                  {category.name}
+                </div>
+              )}
+              {!isTagList && (
+                <div className="flex">
+                  {tags !== null &&
+                    tags.map((tag) => <Tag key={tag.id} {...tag} />)}
+                </div>
+              )}
             </div>
             <div className="text-sm text-gray-300">{updatedAt}</div>
           </div>

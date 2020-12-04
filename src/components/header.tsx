@@ -17,9 +17,9 @@ type categoryProps = {
 };
 
 const Header: React.FC<Props> = ({ category, dark = false }) => {
-  const { allContentfulBlogCategory } = useStaticQuery(graphql`
+  const { allContentfulCategory } = useStaticQuery(graphql`
     query {
-      allContentfulBlogCategory(sort: { order: ASC, fields: order }) {
+      allContentfulCategory(sort: { order: ASC, fields: order }) {
         edges {
           node {
             name
@@ -51,7 +51,7 @@ const Header: React.FC<Props> = ({ category, dark = false }) => {
             dark ? 'text-white' : 'text-gray-400'
           } flex h-full items-center text-md tracking-wider`}
         >
-          {allContentfulBlogCategory.edges.map(
+          {allContentfulCategory.edges.map(
             (edge: categoryProps, index: number) => {
               return (
                 <li className="ml-8" key={edge.node.id}>

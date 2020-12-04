@@ -50,10 +50,11 @@ module.exports = {
         },
       },
       backgroundSize: {
-        auto: 'auto',
-        cover: 'cover',
-        contain: 'contain',
-        '3rem': '3rem',
+        '2rem': '2rem',
+      },
+      backgroundPosition: {
+        'left-1rem': 'center left 1rem',
+        'right-1rem': 'center right 1rem',
       },
     },
   },

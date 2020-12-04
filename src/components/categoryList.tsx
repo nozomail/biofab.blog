@@ -14,9 +14,9 @@ type categoryProps = {
 };
 
 const CategoryList: React.FC = () => {
-  const { allContentfulBlogCategory } = useStaticQuery(graphql`
+  const { allContentfulCategory } = useStaticQuery(graphql`
     query {
-      allContentfulBlogCategory(sort: { order: ASC, fields: order }) {
+      allContentfulCategory(sort: { order: ASC, fields: order }) {
         edges {
           node {
             name
@@ -35,7 +35,7 @@ const CategoryList: React.FC = () => {
 
   return (
     <ul className="max-w-screen-lg mx-auto grid grid-cols-3 gap-8">
-      {allContentfulBlogCategory.edges.map((edge: categoryProps) => {
+      {allContentfulCategory.edges.map((edge: categoryProps) => {
         return (
           <BackgroundImg
             Tag="li"

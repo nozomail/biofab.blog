@@ -12,18 +12,26 @@ type edgeProps = {
     slug: string;
     category: {
       slug: string;
+      order: number;
     };
     updatedAt: string;
     mainImage: {
       fluid: FluidObject;
     };
+    tags:
+      | {
+          id: string;
+          name: string;
+          slug: string;
+        }[]
+      | null;
   };
 };
 
 const Blog: React.FC = () => {
-  const { allContentfulBlogPost } = useStaticQuery(graphql`
+  const { allContentfulArticle } = useStaticQuery(graphql`
     query {
-      allContentfulBlogPost(sort: { fields: updatedAt, order: DESC }) {
+      allContentfulArticle(sort: { fields: updatedAt, order: DESC }) {
         edges {
           node {
             id
@@ -38,6 +46,11 @@ const Blog: React.FC = () => {
                 ...GatsbyContentfulFluid
               }
             }
+            tags {
+              id
+              name
+              slug
+            }
           }
         }
       }
@@ -45,12 +58,10 @@ const Blog: React.FC = () => {
   `);
 
   return (
-    <Layout title="All articles" color={0}>
+    <Layout title="All articles" colorIndex={0}>
       <ul>
-        {allContentfulBlogPost.edges.map((edge: edgeProps) => {
-          return (
-            <ArticleListItem {...edge.node} key={edge.node.id} color={1} ca />
-          );
+        {allContentfulArticle.edges.map((edge: edgeProps) => {
+          return <ArticleListItem {...edge.node} key={edge.node.id} />;
         })}
       </ul>
     </Layout>

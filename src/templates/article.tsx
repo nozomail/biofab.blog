@@ -15,18 +15,19 @@ import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
+import Tag from '../components/tag';
 
 import arrowLeft from '../images/left-arrow.svg';
 import arrowRight from '../images/right-arrow.svg';
 
-import { textColors, mdBgColors } from '../constants/colors';
+import { textColors, lgBgColors } from '../constants/colors';
 
 export const query = graphql`
-  query($post: String!, $category: String!) {
-    thisPost: contentfulBlogPost(slug: { eq: $post }) {
+  query($article: String!, $category: String!) {
+    thisPost: contentfulArticle(slug: { eq: $article }) {
       title
+      slug
       category {
-        name
         slug
         order
       }
@@ -36,11 +37,16 @@ export const query = graphql`
           ...GatsbyContentfulFluid
         }
       }
+      tags {
+        id
+        name
+        slug
+      }
       body {
         raw
       }
     }
-    allPosts: allContentfulBlogPost(
+    allPosts: allContentfulArticle(
       sort: { order: DESC, fields: updatedAt }
       filter: { category: { slug: { eq: $category } } }
     ) {
@@ -63,6 +69,7 @@ type dataProps = {
   data: {
     thisPost: {
       title: string;
+      slug: string;
       category: {
         name: string;
         slug: string;
@@ -72,6 +79,13 @@ type dataProps = {
       mainImage: {
         fluid: FluidObject;
       };
+      tags:
+        | {
+            id: string;
+            name: string;
+            slug: string;
+          }[]
+        | null;
       body: {
         raw: string;
       };
@@ -87,10 +101,6 @@ type dataProps = {
         };
       }[];
     };
-  };
-  pageContext: {
-    post: string;
-    category: string;
   };
 };
 
@@ -160,11 +170,19 @@ const options = {
   },
 };
 
-const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
-  const { title, category, updatedAt, mainImage, body } = data.thisPost;
-  const posts = data.allPosts.edges;
+const Article: React.FC<dataProps> = ({ data }) => {
+  const {
+    title,
+    slug,
+    category,
+    updatedAt,
+    mainImage,
+    tags,
+    body,
+  } = data.thisPost;
+  const articles = data.allPosts.edges;
 
-  const index = posts.findIndex((post) => post.node.slug === pageContext.post);
+  const index = articles.findIndex((article) => article.node.slug === slug);
 
   return (
     <div>
@@ -176,6 +194,10 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
           >
             {title}
           </h1>
+          <div className="flex justify-center mb-4">
+            {tags !== null &&
+              tags.map((tag) => <Tag key={tag.id} {...tag} isLink />)}
+          </div>
           <span className="text-sm font-light">Updated on {updatedAt}</span>
         </div>
       </div>
@@ -187,18 +209,24 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
         </div>
       </div>
 
-      {(posts[index - 1] || posts[index + 1]) && (
+      {(articles[index - 1] || articles[index + 1]) && (
         <div className="max-w-screen-lg mx-auto py-20 flex">
           <div className="w-full">
-            {posts[index - 1] && (
+            {articles[index - 1] && (
               <Link
-                to={`/${category.slug}/${posts[index - 1].node.slug}/`}
+                to={`/${category.slug}/${articles[index - 1].node.slug}/`}
                 className={`${
-                  mdBgColors[category.order % 5]
-                } block w-full py-6 pr-8 pl-16 bg-no-repeat bg-left bg-3rem`}
+                  lgBgColors[category.order % 5]
+                } block w-full py-6 pr-8 pl-16 bg-no-repeat bg-left bg-2rem bg-left-1rem`}
                 style={{ backgroundImage: `url(${arrowLeft})` }}
               >
-                <div className="text-xs text-white font-semibold tracking-wider mb-2">
+                <div
+                  className={`text-${
+                    textColors[category.order % 5]
+                  } border-b border-${
+                    textColors[category.order % 5]
+                  } inline-block text-xs font-semibold tracking-wider mb-3`}
+                >
                   PREVIOUS ARTICLE
                 </div>
                 <div
@@ -206,21 +234,27 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
                     textColors[category.order % 5]
                   } font-serif text-lg`}
                 >
-                  {posts[index - 1].node.title}
+                  {articles[index - 1].node.title}
                 </div>
               </Link>
             )}
           </div>
           <div className="w-full ml-8">
-            {posts[index + 1] && (
+            {articles[index + 1] && (
               <Link
-                to={`/${category.slug}/${posts[index + 1].node.slug}/`}
+                to={`/${category.slug}/${articles[index + 1].node.slug}/`}
                 className={`${
-                  mdBgColors[category.order % 5]
-                } block w-full py-6 pl-8 pr-16 bg-no-repeat bg-right bg-3rem`}
+                  lgBgColors[category.order % 5]
+                } block w-full py-6 pl-8 pr-16 bg-no-repeat bg-right bg-2rem bg-right-1rem`}
                 style={{ backgroundImage: `url(${arrowRight})` }}
               >
-                <div className="text-xs text-white font-semibold tracking-wider mb-2">
+                <div
+                  className={`text-${
+                    textColors[category.order % 5]
+                  } border-b border-${
+                    textColors[category.order % 5]
+                  } inline-block text-xs font-semibold tracking-wider mb-3`}
+                >
                   NEXT ARTICLE
                 </div>
                 <div
@@ -228,7 +262,7 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
                     textColors[category.order % 5]
                   } font-serif text-lg`}
                 >
-                  {posts[index + 1].node.title}
+                  {articles[index + 1].node.title}
                 </div>
               </Link>
             )}
@@ -241,4 +275,4 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
   );
 };
 
-export default BlogPost;
+export default Article;
