@@ -16,7 +16,7 @@ const Layout: React.FC<Props> = ({ title, color, children }) => {
       <div className={`${mdBgColors[color]} pt-2 pb-8 px-8`}>
         <Header dark />
         <h1
-          className={`${textColors[color]} max-w-screen-lg mx-auto text-5xl font-serif mt-6`}
+          className={`text-${textColors[color]} max-w-screen-lg mx-auto text-5xl font-serif mt-6`}
         >
           {title}
         </h1>

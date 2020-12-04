@@ -11,7 +11,7 @@ type Props = {
     slug: string;
   };
   color: number;
-  publishedDate: string;
+  updatedAt: string;
   mainImage: {
     fluid: FluidObject;
   };
@@ -22,7 +22,7 @@ const ArticleListItem: React.FC<Props> = ({
   slug,
   category,
   color,
-  publishedDate,
+  updatedAt,
   mainImage,
 }) => {
   return (
@@ -47,7 +47,7 @@ const ArticleListItem: React.FC<Props> = ({
                 Tagtag2
               </div>
             </div>
-            <div className="text-sm text-gray-300">{publishedDate}</div>
+            <div className="text-sm text-gray-300">{updatedAt}</div>
           </div>
           <h2 className="text-xl font-normal">{title}</h2>
         </div>

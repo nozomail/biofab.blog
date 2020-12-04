@@ -30,7 +30,7 @@ export const query = graphql`
         slug
         order
       }
-      publishedDate(formatString: "DD MMMM, YYYY")
+      updatedAt(formatString: "DD MMMM, YYYY")
       mainImage {
         fluid(maxWidth: 1280) {
           ...GatsbyContentfulFluid
@@ -41,7 +41,7 @@ export const query = graphql`
       }
     }
     allPosts: allContentfulBlogPost(
-      sort: { order: DESC, fields: publishedDate }
+      sort: { order: DESC, fields: updatedAt }
       filter: { category: { slug: { eq: $category } } }
     ) {
       edges {
@@ -68,7 +68,7 @@ type dataProps = {
         slug: string;
         order: number;
       };
-      publishedDate: string;
+      updatedAt: string;
       mainImage: {
         fluid: FluidObject;
       };
@@ -161,7 +161,7 @@ const options = {
 };
 
 const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
-  const { title, category, publishedDate, mainImage, body } = data.thisPost;
+  const { title, category, updatedAt, mainImage, body } = data.thisPost;
   const posts = data.allPosts.edges;
 
   const index = posts.findIndex((post) => post.node.slug === pageContext.post);
@@ -176,7 +176,7 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
           >
             {title}
           </h1>
-          <span className="text-sm font-light">Updated on {publishedDate}</span>
+          <span className="text-sm font-light">Updated on {updatedAt}</span>
         </div>
       </div>
 
@@ -193,13 +193,19 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
             {posts[index - 1] && (
               <Link
                 to={`/${category.slug}/${posts[index - 1].node.slug}/`}
-                className="block w-full bg-blue-200 py-6 pr-8 pl-16 bg-no-repeat bg-left bg-3rem"
+                className={`${
+                  mdBgColors[category.order % 5]
+                } block w-full py-6 pr-8 pl-16 bg-no-repeat bg-left bg-3rem`}
                 style={{ backgroundImage: `url(${arrowLeft})` }}
               >
                 <div className="text-xs text-white font-semibold tracking-wider mb-2">
                   PREVIOUS ARTICLE
                 </div>
-                <div className="font-serif text-lg text-blue-400">
+                <div
+                  className={`text-${
+                    textColors[category.order % 5]
+                  } font-serif text-lg`}
+                >
                   {posts[index - 1].node.title}
                 </div>
               </Link>
@@ -218,7 +224,7 @@ const BlogPost: React.FC<dataProps> = ({ data, pageContext }) => {
                   NEXT ARTICLE
                 </div>
                 <div
-                  className={`${
+                  className={`text-${
                     textColors[category.order % 5]
                   } font-serif text-lg`}
                 >

@@ -17,7 +17,7 @@ type articleProps = {
     category: {
       slug: string;
     };
-    publishedDate: string;
+    updatedAt: string;
     mainImage: {
       fluid: FluidObject;
     };
@@ -29,7 +29,7 @@ const Index: React.FC = () => {
     query {
       allContentfulBlogPost(
         limit: 3
-        sort: { order: DESC, fields: publishedDate }
+        sort: { order: DESC, fields: updatedAt }
       ) {
         edges {
           node {
@@ -39,7 +39,7 @@ const Index: React.FC = () => {
             category {
               slug
             }
-            publishedDate(formatString: "DD MMM, YYYY")
+            updatedAt(formatString: "DD MMM, YYYY")
             mainImage {
               fluid(maxWidth: 160) {
                 ...GatsbyContentfulFluid

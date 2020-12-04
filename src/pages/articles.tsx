@@ -13,7 +13,7 @@ type edgeProps = {
     category: {
       slug: string;
     };
-    publishedDate: string;
+    updatedAt: string;
     mainImage: {
       fluid: FluidObject;
     };
@@ -23,7 +23,7 @@ type edgeProps = {
 const Blog: React.FC = () => {
   const { allContentfulBlogPost } = useStaticQuery(graphql`
     query {
-      allContentfulBlogPost(sort: { fields: publishedDate, order: DESC }) {
+      allContentfulBlogPost(sort: { fields: updatedAt, order: DESC }) {
         edges {
           node {
             id
@@ -32,7 +32,7 @@ const Blog: React.FC = () => {
             category {
               slug
             }
-            publishedDate(formatString: "DD MMM, YYYY")
+            updatedAt(formatString: "DD MMM, YYYY")
             mainImage {
               fluid(maxWidth: 750) {
                 ...GatsbyContentfulFluid
@@ -45,7 +45,7 @@ const Blog: React.FC = () => {
   `);
 
   return (
-    <Layout title="All articles" color={1}>
+    <Layout title="All articles" color={0}>
       <ul>
         {allContentfulBlogPost.edges.map((edge: edgeProps) => {
           return (

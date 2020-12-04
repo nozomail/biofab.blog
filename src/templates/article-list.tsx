@@ -9,7 +9,7 @@ export const query = graphql`
   query($slug: String!) {
     allContentfulBlogPost(
       filter: { category: { slug: { eq: $slug } } }
-      sort: { fields: publishedDate, order: DESC }
+      sort: { fields: updatedAt, order: DESC }
     ) {
       edges {
         node {
@@ -19,7 +19,7 @@ export const query = graphql`
           category {
             slug
           }
-          publishedDate(formatString: "DD MMM, YYYY")
+          updatedAt(formatString: "DD MMM, YYYY")
           mainImage {
             fluid(maxWidth: 750) {
               ...GatsbyContentfulFluid
@@ -39,7 +39,7 @@ type edgeProps = {
     category: {
       slug: string;
     };
-    publishedDate: string;
+    updatedAt: string;
     mainImage: {
       fluid: FluidObject;
     };
@@ -60,6 +60,7 @@ type dataProps = {
 };
 
 const Blog: React.FC<dataProps> = ({ data, pageContext }) => {
+  console.log(pageContext.name, pageContext.order);
   return (
     <Layout title={pageContext.name} color={pageContext.order % 5}>
       <ul>

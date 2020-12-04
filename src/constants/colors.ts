@@ -1,9 +1,9 @@
 export const textColors = [
-  'text-blue-400',
-  'text-lightBlue-400',
-  'text-green-400',
-  'text-gray-400',
-  'text-pink-400',
+  'blue-400',
+  'lightBlue-400',
+  'green-400',
+  'gray-400',
+  'pink-400',
 ];
 
 export const smBgColors = [
