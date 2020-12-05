@@ -11,6 +11,7 @@ type edgeProps = {
     title: string;
     slug: string;
     category: {
+      name: string;
       slug: string;
       order: number;
     };
@@ -38,7 +39,9 @@ const Blog: React.FC = () => {
             title
             slug
             category {
+              name
               slug
+              order
             }
             updatedAt(formatString: "DD MMM, YYYY")
             mainImage {
@@ -61,7 +64,14 @@ const Blog: React.FC = () => {
     <Layout title="All articles" colorIndex={0}>
       <ul>
         {allContentfulArticle.edges.map((edge: edgeProps) => {
-          return <ArticleListItem {...edge.node} key={edge.node.id} />;
+          return (
+            <ArticleListItem
+              key={edge.node.id}
+              {...edge.node}
+              isCategoryList={false}
+              isTagList={false}
+            />
+          );
         })}
       </ul>
     </Layout>
