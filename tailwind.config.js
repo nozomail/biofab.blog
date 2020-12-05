@@ -59,7 +59,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      pointerEvents: ['disabled'],
+    },
   },
   plugins: [],
 };
