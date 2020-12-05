@@ -41,34 +41,43 @@ const ArticleListItem: React.FC<Props> = ({
 }) => {
   return (
     <li className="border-b border-gray-200">
-      <Link to={`/${category.slug}/${slug}/`} className="flex items-start py-6">
+      <Link
+        to={`/${category.slug}/${slug}/`}
+        className="flex items-stretch py-6"
+      >
         <Img
           fluid={mainImage.fluid}
           alt={title}
-          className="flex-shrink-0 w-40 h-24"
+          className="flex-shrink-0 w-14 h-14 sm:w-40 sm:h-24"
         />
-        <div className="flex-grow ml-8">
-          <div className="flex justify-between mb-4">
-            <div className="flex">
+        <div className="flex flex-col flex-grow ml-4 sm:ml-8">
+          <h2 className="text-md mb-2 sm:text-xl font-normal">{title}</h2>
+          <div className="flex flex-col flex-grow sm:flex-row sm:justify-between">
+            <div className="flex flex-wrap mb-auto">
               {!isCategoryList && (
                 <div
                   className={`text-${
                     textColors[category.order % 5]
-                  } font-bold tracking-wider mr-4`}
+                  } font-bold tracking-wider mb-2 mr-4`}
                 >
                   {category.name}
                 </div>
               )}
               {!isTagList && (
-                <div className="flex">
+                <div className="flex flex-wrap">
                   {tags !== null &&
-                    tags.map((tag) => <Tag key={tag.id} {...tag} />)}
+                    tags.map((tag) => (
+                      <div key={tag.id} className="mb-2">
+                        <Tag {...tag} />
+                      </div>
+                    ))}
                 </div>
               )}
             </div>
-            <div className="text-sm text-gray-300">{updatedAt}</div>
+            <div className="text-sm text-gray-300 text-right mt-auto">
+              {updatedAt}
+            </div>
           </div>
-          <h2 className="text-xl font-normal">{title}</h2>
         </div>
       </Link>
     </li>

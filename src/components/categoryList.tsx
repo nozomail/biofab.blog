@@ -34,19 +34,19 @@ const CategoryList: React.FC = () => {
   `);
 
   return (
-    <ul className="max-w-screen-lg mx-auto grid grid-cols-3 gap-8">
+    <ul className="max-w-screen-lg mx-auto grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-8">
       {allContentfulCategory.edges.map((edge: categoryProps) => {
         return (
           <BackgroundImg
             Tag="li"
             fluid={edge.node.image.fluid}
             key={edge.node.id}
-            className="h-40 relative"
+            className="h-24 sm:h-40 relative"
           >
             <div className="bg-blue-600 opacity-50 absolute inset-0"></div>
             <Link
               to={`/${edge.node.slug}/`}
-              className="text-3xl text-white font-normal tracking-wide absolute inset-0 flex items-center justify-center text-center p-4"
+              className="text-xl sm:text-2xl text-white font-normal tracking-wide absolute inset-0 flex items-center justify-center text-center p-4"
             >
               {edge.node.name}
             </Link>

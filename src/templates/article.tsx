@@ -186,15 +186,15 @@ const Article: React.FC<dataProps> = ({ data }) => {
 
   return (
     <div>
-      <div className="pt-2 pb-8 px-8">
+      <div className="pt-2 pb-8 px-4 px-4 sm:px-8">
         <Header category={category.slug} />
-        <div className="text-center mt-8 mb-4">
+        <div className="sm:text-center mt-8 mb-4">
           <h1
-            className={`max-w-screen-lg mx-auto text-4xl leading-normal font-serif mb-4`}
+            className={`max-w-screen-lg mx-auto text-2xl sm:text-4xl leading-normal font-serif mb-4`}
           >
             {title}
           </h1>
-          <div className="flex justify-center mb-4">
+          <div className="flex sm:justify-center mb-4">
             {tags !== null &&
               tags.map((tag) => <Tag key={tag.id} {...tag} isLink />)}
           </div>
@@ -203,21 +203,21 @@ const Article: React.FC<dataProps> = ({ data }) => {
       </div>
 
       <div>
-        <Img fluid={mainImage.fluid} alt={title} className="h-80" />
-        <div className="max-w-screen-lg mx-auto pt-8 py-20 px-8">
+        <Img fluid={mainImage.fluid} alt={title} className="h-40 sm:h-80" />
+        <div className="max-w-screen-lg mx-auto pt-8 py-20 px-4 sm:px-8">
           {documentToReactComponents(JSON.parse(body.raw), options)}
         </div>
       </div>
 
       {(articles[index - 1] || articles[index + 1]) && (
-        <div className="max-w-screen-lg mx-auto py-20 flex">
-          <div className="w-full">
+        <div className="max-w-screen-lg mx-auto sm:py-10 sm:px-8 flex flex-col sm:flex-row">
+          <div className="w-full mb-4">
             {articles[index - 1] && (
               <Link
                 to={`/${category.slug}/${articles[index - 1].node.slug}/`}
                 className={`${
                   lgBgColors[category.order % 5]
-                } block w-full py-6 pr-8 pl-16 bg-no-repeat bg-left bg-2rem bg-left-1rem`}
+                } block w-full py-6 pr-4 pl-14 sm:pr-8 sm:pl-16 bg-no-repeat bg-left bg-1.5rem bg-left-0.5rem sm:bg-2rem sm:bg-left-1rem`}
                 style={{ backgroundImage: `url(${arrowLeft})` }}
               >
                 <div
@@ -239,13 +239,13 @@ const Article: React.FC<dataProps> = ({ data }) => {
               </Link>
             )}
           </div>
-          <div className="w-full ml-8">
+          <div className="w-full sm:ml-8">
             {articles[index + 1] && (
               <Link
                 to={`/${category.slug}/${articles[index + 1].node.slug}/`}
                 className={`${
                   lgBgColors[category.order % 5]
-                } block w-full py-6 pl-8 pr-16 bg-no-repeat bg-right bg-2rem bg-right-1rem`}
+                } block w-full py-6 pl-4 pr-14 sm:pl-8 sm:pr-16 bg-no-repeat bg-right bg-1.5rem bg-right-0.5rem sm:bg-2rem sm:bg-right-1rem`}
                 style={{ backgroundImage: `url(${arrowRight})` }}
               >
                 <div

@@ -35,17 +35,17 @@ const Header: React.FC<Props> = ({ category, dark = false }) => {
     <header className="flex justify-between py-4">
       <div>
         <Link to="/" className="flex items-center">
-          <div className="w-8 h-8 rounded-full bg-green-400"></div>
+          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-green-400"></div>
           <div
             className={`${
               dark ? 'text-white' : 'text-blue-600'
-            } text-xl font-semibold ml-2`}
+            } text-md sm:text-xl font-semibold ml-2`}
           >
             Biofab.blog
           </div>
         </Link>
       </div>
-      <nav>
+      <nav className="hidden lg:block">
         <ul
           className={`${
             dark ? 'text-white' : 'text-gray-400'

@@ -81,19 +81,19 @@ const Index: React.FC = () => {
       <div className="bg-gray-100 pt-2 pb-8 px-8">
         <Header />
         <div className="max-w-screen-lg mx-auto font-serif py-10">
-          <span className="block py-2 text-5xl leading-tight text-blue-400">
+          <span className="block py-2 text-4xl sm:text-5xl leading-tight text-blue-400">
             Unbiased Report
             <br />
             on <span className="text-green-400">Biofabrication</span>
           </span>
-          <span className="block py-2 text-3xl italic text-blue-300">
+          <span className="block py-2 text-2xl sm:text-3xl italic text-blue-300">
             for beginners to advanced
           </span>
         </div>
       </div>
 
-      <section className="max-w-screen-md mx-auto py-20 px-8">
-        <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-6">
+      <section className="max-w-screen-md mx-auto pt-10 sm:pt-14 pb-20 px-4 sm:px-8">
+        <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-10">
           LATEST ARTICLES
         </h2>
         <ul>
@@ -105,7 +105,7 @@ const Index: React.FC = () => {
               >
                 <Link
                   to={`/${edge.node.category.slug}/${edge.node.slug}/`}
-                  className="flex items-center text-md font-light"
+                  className="flex items-center text-sm sm:text-md"
                 >
                   <Img
                     fluid={edge.node.mainImage.fluid}
@@ -120,19 +120,34 @@ const Index: React.FC = () => {
         </ul>
       </section>
 
-      <section className="bg-green-100 py-20 px-8">
-        <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-12">
+      <section className="bg-green-100 pt-10 sm:pt-16 pb-20 px-4 sm:px-8">
+        <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-16">
           WHERE TO START
         </h2>
         <CategoryList />
       </section>
 
-      <section className="max-w-screen-md mx-auto py-20 px-8">
-        <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-12">
+      <section className="max-w-screen-md mx-auto pt-10 sm:py-16 pb-20 px-4 sm:px-8">
+        <h2 className="text-lg font-semibold text-green-400 tracking-wider text-center mb-16">
           AUTHOR
         </h2>
-        <div className="flex items-start">
-          <div className="mr-8 text-md font-light leading-7">
+        <div className="flex flex-col items-center sm:flex-row-reverse sm:items-start">
+          <div className="flex-shrink-0 mb-8">
+            <img
+              src="https://placehold.jp/240x240.png"
+              className="w-40 h-40 sm:w-60 sm:h-60"
+              alt=""
+            />
+            <div className="flex justify-center mt-4">
+              <a href="" target="_blank">
+                <img className="h-6" src={Twitter} alt="Twitter" />
+              </a>
+              <a href="" target="_blank">
+                <img className="h-6 ml-4" src={LinkedIn} alt="LinkedIn" />
+              </a>
+            </div>
+          </div>
+          <div className="text-md font-light leading-7 sm:mr-8">
             <p>Hi I’m Matt, a PhD candidate at the University of Melbourne.</p>
             <p className="mt-4">
               I have devoted the last 5 years to tissue engineering,
@@ -149,22 +164,11 @@ const Index: React.FC = () => {
               something that interests you!
             </p>
           </div>
-          <div className="flex-shrink-0">
-            <img src="https://placehold.jp/240x240.png" alt="" />
-            <div className="flex justify-center mt-4">
-              <a href="" target="_blank">
-                <img className="h-6" src={Twitter} alt="Twitter" />
-              </a>
-              <a href="" target="_blank">
-                <img className="h-6 ml-4" src={LinkedIn} alt="LinkedIn" />
-              </a>
-            </div>
-          </div>
         </div>
       </section>
 
-      <section className="bg-pink-100 py-20 px-8">
-        <h2 className="text-lg font-semibold text-pink-400 tracking-wider text-center mb-6">
+      <section className="bg-pink-100 pt-10 sm:pt-16 pb-10 px-4 sm:px-8">
+        <h2 className="text-lg font-semibold text-pink-400 tracking-wider text-center mb-10">
           GET IN TOUCH
         </h2>
         <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
