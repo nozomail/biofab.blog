@@ -3,7 +3,7 @@ import React from 'react';
 import Header from './header';
 import Footer from './footer';
 
-import { textColors, lgBgColors } from '../constants/colors';
+import { textColors, lgBgColors } from '../utilities/constants/colors';
 
 type Props = {
   title: string;

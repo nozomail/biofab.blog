@@ -4,7 +4,7 @@ import Img, { FluidObject } from 'gatsby-image';
 
 import Tag from '../components/tag';
 
-import { textColors } from '../constants/colors';
+import { textColors } from '../utilities/constants/colors';
 
 type Props = {
   isCategoryList: boolean;

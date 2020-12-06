@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 
-import { textColors } from '../constants/colors';
+import { textColors } from '../utilities/constants/colors';
 
 type Props = {
   currentPage?: string;
@@ -70,6 +70,9 @@ const Header: React.FC<Props> = ({ currentPage = '', category = '' }) => {
               );
             }
           )}
+          <li className="ml-8">
+            <Link to="/articles/">All</Link>
+          </li>
         </ul>
 
         <button
@@ -119,10 +122,10 @@ const Header: React.FC<Props> = ({ currentPage = '', category = '' }) => {
               )}
               <li className="py-4 lg:py-0 lg:ml-8">
                 {currentPage === 'articles' ? (
-                  <span className="text-gray-200">All articles</span>
+                  <span className="text-gray-200">All</span>
                 ) : (
                   <Link to="/articles/" className="text-gray-400">
-                    All articles
+                    All
                   </Link>
                 )}
               </li>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-import { lgBgColors } from '../constants/colors';
+import { lgBgColors } from '../utilities/constants/colors';
 
 type Props = {
   name: string;

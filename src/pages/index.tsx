@@ -59,6 +59,7 @@ const Index: React.FC = () => {
       form.reset();
     }
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -118,12 +119,12 @@ const Index: React.FC = () => {
             );
           })}
         </ul>
-        <div className="mt-8 text-center">
+        <div className="mt-4 text-right">
           <Link
             to="/articles/"
             className="text-xs tracking-wider border-b border-gray-600"
           >
-            ALL ARTICLES
+            MORE
           </Link>
         </div>
       </section>
