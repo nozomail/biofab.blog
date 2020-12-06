@@ -1,5 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { ReactNode } from 'react';
+import { Link } from 'gatsby';
+import Img from 'gatsby-image';
 import {
   MARKS,
   BLOCKS,
@@ -9,6 +11,15 @@ import {
 } from '@contentful/rich-text-types';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
+import Tag from '../../components/tag';
+import { textColors } from '../constants/colors';
+
+type tag = {
+  id: string;
+  name: string;
+  slug?: string;
+};
 
 export const options = {
   renderMark: {
@@ -66,6 +77,57 @@ export const options = {
     [BLOCKS.QUOTE]: (node: Block | Inline, children: ReactNode): ReactNode => (
       <q className="text-lg font-semibold my-8">{children}</q>
     ),
+    [BLOCKS.EMBEDDED_ASSET]: (node: Block): ReactNode => {
+      const { fluid, title, description, file } = node.data.target;
+      return (
+        <figure
+          style={{ maxWidth: `${file.details.image.width}px` }}
+          className="mx-auto py-8"
+        >
+          <Img fluid={fluid} alt={title} />
+          {description && (
+            <figcaption className="font-light mt-2">{description}</figcaption>
+          )}
+        </figure>
+      );
+    },
+    [BLOCKS.EMBEDDED_ENTRY]: (node: Block): ReactNode => {
+      const { category, slug, mainImage, title, tags } = node.data.target;
+      return (
+        <Link
+          to={`/${category.slug}/${slug}/`}
+          className="flex items-center border border-gray-100 pt-4 pb-2 px-4 sm:px-5 my-4 shadow-md"
+        >
+          <Img
+            fluid={mainImage.fluid}
+            alt={title}
+            className="flex-shrink-0 w-14 h-14 sm:w-24 sm:h-18 mb-2"
+          />
+          <div className="flex flex-col flex-grow ml-4 sm:ml-5">
+            <div className="text-md mb-2 sm:text-lg font-normal">{title}</div>
+            <div className="flex flex-col flex-grow sm:flex-row sm:justify-between">
+              <div className="flex flex-wrap mb-auto">
+                <div
+                  className={`text-${
+                    textColors[category.order % 5]
+                  } font-bold tracking-wider mb-2 mr-4`}
+                >
+                  {category.name}
+                </div>
+                <div className="flex flex-wrap">
+                  {tags !== null &&
+                    tags.map((tag: tag) => (
+                      <div key={tag.id} className="mb-2">
+                        <Tag {...tag} />
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Link>
+      );
+    },
     [INLINES.HYPERLINK]: (
       node: Block | Inline,
       children: ReactNode

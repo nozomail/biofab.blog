@@ -1,7 +1,11 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import {
+  renderRichText,
+  RenderRichTextData,
+  ContentfulRichTextGatsbyReference,
+} from 'gatsby-source-contentful/rich-text';
 import { options } from '../utilities/contentful/richText';
 
 import Header from '../components/header';
@@ -16,6 +20,7 @@ import { textColors, lgBgColors } from '../utilities/constants/colors';
 export const query = graphql`
   query($article: String!, $category: String!) {
     thisPost: contentfulArticle(slug: { eq: $article }) {
+      id
       title
       slug
       category {
@@ -35,6 +40,44 @@ export const query = graphql`
       }
       body {
         raw
+        references {
+          ... on ContentfulArticle {
+            contentful_id
+            slug
+            title
+            category {
+              name
+              slug
+              order
+            }
+            mainImage {
+              fluid(maxWidth: 320) {
+                ...GatsbyContentfulFluid
+              }
+            }
+            updatedAt(formatString: "DD MMM, YYYY")
+            tags {
+              id
+              name
+              slug
+            }
+          }
+          ... on ContentfulAsset {
+            contentful_id
+            title
+            description
+            fluid(maxWidth: 1920) {
+              ...GatsbyContentfulFluid
+            }
+            file {
+              details {
+                image {
+                  width
+                }
+              }
+            }
+          }
+        }
       }
     }
     allPosts: allContentfulArticle(
@@ -77,9 +120,7 @@ type dataProps = {
             slug: string;
           }[]
         | null;
-      body: {
-        raw: string;
-      };
+      body: RenderRichTextData<ContentfulRichTextGatsbyReference>;
     };
     allPosts: {
       edges: {
@@ -130,7 +171,7 @@ const Article: React.FC<dataProps> = ({ data }) => {
       <div>
         <Img fluid={mainImage.fluid} alt={title} className="h-40 sm:h-80" />
         <div className="max-w-screen-lg mx-auto pt-8 py-20 px-4 sm:px-8">
-          {documentToReactComponents(JSON.parse(body.raw), options)}
+          {renderRichText(body, options)}
         </div>
       </div>
 

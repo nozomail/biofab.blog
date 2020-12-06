@@ -23,7 +23,7 @@ export const query = graphql`
           }
           updatedAt(formatString: "DD MMM, YYYY")
           mainImage {
-            fluid(maxWidth: 750) {
+            fluid(maxWidth: 320) {
               ...GatsbyContentfulFluid
             }
           }

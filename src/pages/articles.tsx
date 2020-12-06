@@ -45,7 +45,7 @@ const Blog: React.FC = () => {
             }
             updatedAt(formatString: "DD MMM, YYYY")
             mainImage {
-              fluid(maxWidth: 750) {
+              fluid(maxWidth: 320) {
                 ...GatsbyContentfulFluid
               }
             }
