@@ -186,7 +186,7 @@ const Article: React.FC<dataProps> = ({ data }) => {
 
   return (
     <div>
-      <div className="pt-2 pb-8 px-4 px-4 sm:px-8">
+      <div className="pt-4 pb-8 px-4 sm:px-8">
         <Header category={category.slug} />
         <div className="sm:text-center mt-8 mb-4">
           <h1
@@ -211,22 +211,16 @@ const Article: React.FC<dataProps> = ({ data }) => {
 
       {(articles[index - 1] || articles[index + 1]) && (
         <div className="max-w-screen-lg mx-auto sm:py-10 sm:px-8 flex flex-col sm:flex-row">
-          <div className="w-full mb-4">
+          <div className="w-full">
             {articles[index - 1] && (
               <Link
                 to={`/${category.slug}/${articles[index - 1].node.slug}/`}
                 className={`${
                   lgBgColors[category.order % 5]
-                } block w-full py-6 pr-4 pl-14 sm:pr-8 sm:pl-16 bg-no-repeat bg-left bg-1.5rem bg-left-0.5rem sm:bg-2rem sm:bg-left-1rem`}
+                } block w-full py-6 pr-4 pl-14 sm:pr-8 bg-no-repeat bg-left bg-1.5rem bg-left-1rem`}
                 style={{ backgroundImage: `url(${arrowLeft})` }}
               >
-                <div
-                  className={`text-${
-                    textColors[category.order % 5]
-                  } border-b border-${
-                    textColors[category.order % 5]
-                  } inline-block text-xs font-semibold tracking-wider mb-3`}
-                >
+                <div className="text-gray-400 border-b border-gray-400 inline-block text-xs tracking-wider mb-3">
                   PREVIOUS ARTICLE
                 </div>
                 <div
@@ -239,22 +233,16 @@ const Article: React.FC<dataProps> = ({ data }) => {
               </Link>
             )}
           </div>
-          <div className="w-full sm:ml-8">
+          <div className="w-fullsm:ml-8">
             {articles[index + 1] && (
               <Link
                 to={`/${category.slug}/${articles[index + 1].node.slug}/`}
                 className={`${
                   lgBgColors[category.order % 5]
-                } block w-full py-6 pl-4 pr-14 sm:pl-8 sm:pr-16 bg-no-repeat bg-right bg-1.5rem bg-right-0.5rem sm:bg-2rem sm:bg-right-1rem`}
+                } block w-full text-right sm:text-left py-6 pl-4 pr-14 sm:pl-8 bg-no-repeat bg-right bg-1.5rem bg-right-1rem mt-4 sm:mt-0 `}
                 style={{ backgroundImage: `url(${arrowRight})` }}
               >
-                <div
-                  className={`text-${
-                    textColors[category.order % 5]
-                  } border-b border-${
-                    textColors[category.order % 5]
-                  } inline-block text-xs font-semibold tracking-wider mb-3`}
-                >
+                <div className="text-gray-400 border-b border-gray-400 inline-block text-xs tracking-wider mb-3">
                   NEXT ARTICLE
                 </div>
                 <div

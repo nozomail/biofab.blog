@@ -78,9 +78,9 @@ const Index: React.FC = () => {
 
   return (
     <div>
-      <div className="bg-gray-100 pt-2 pb-8 px-8">
+      <div className="bg-gray-100 pt-4 pb-8 px-4 sm:px-8">
         <Header />
-        <div className="max-w-screen-lg mx-auto font-serif py-10">
+        <div className="max-w-screen-lg mx-auto font-serif text-center sm:text-left pt-8 sm:pb-4">
           <span className="block py-2 text-4xl sm:text-5xl leading-tight text-blue-400">
             Unbiased Report
             <br />
