@@ -210,36 +210,14 @@ const Article: React.FC<dataProps> = ({ data }) => {
       </div>
 
       {(articles[index - 1] || articles[index + 1]) && (
-        <div className="max-w-screen-lg mx-auto sm:py-10 sm:px-8 flex flex-col sm:flex-row">
-          <div className="w-full">
-            {articles[index - 1] && (
-              <Link
-                to={`/${category.slug}/${articles[index - 1].node.slug}/`}
-                className={`${
-                  lgBgColors[category.order % 5]
-                } block w-full py-6 pr-4 pl-14 sm:pr-8 bg-no-repeat bg-left bg-1.5rem bg-left-1rem`}
-                style={{ backgroundImage: `url(${arrowLeft})` }}
-              >
-                <div className="text-gray-400 border-b border-gray-400 inline-block text-xs tracking-wider mb-3">
-                  PREVIOUS ARTICLE
-                </div>
-                <div
-                  className={`text-${
-                    textColors[category.order % 5]
-                  } font-serif text-lg`}
-                >
-                  {articles[index - 1].node.title}
-                </div>
-              </Link>
-            )}
-          </div>
-          <div className="w-fullsm:ml-8">
+        <div className="max-w-screen-lg mx-auto sm:py-10 sm:px-8 flex flex-col sm:flex-row-reverse">
+          <div className="w-full sm:ml-8">
             {articles[index + 1] && (
               <Link
                 to={`/${category.slug}/${articles[index + 1].node.slug}/`}
                 className={`${
                   lgBgColors[category.order % 5]
-                } block w-full text-right sm:text-left py-6 pl-4 pr-14 sm:pl-8 bg-no-repeat bg-right bg-1.5rem bg-right-1rem mt-4 sm:mt-0 `}
+                } block w-full text-right sm:text-left py-6 pl-4 pr-14 sm:pl-8 bg-no-repeat bg-right bg-1.5rem bg-right-1rem`}
                 style={{ backgroundImage: `url(${arrowRight})` }}
               >
                 <div className="text-gray-400 border-b border-gray-400 inline-block text-xs tracking-wider mb-3">
@@ -255,8 +233,41 @@ const Article: React.FC<dataProps> = ({ data }) => {
               </Link>
             )}
           </div>
+          <div className="w-full">
+            {articles[index - 1] && (
+              <Link
+                to={`/${category.slug}/${articles[index - 1].node.slug}/`}
+                className={`${
+                  lgBgColors[category.order % 5]
+                } block w-full py-6 pr-4 pl-14 sm:pr-8 bg-no-repeat bg-left bg-1.5rem bg-left-1rem mt-4 sm:mt-0`}
+                style={{ backgroundImage: `url(${arrowLeft})` }}
+              >
+                <div className="text-gray-400 border-b border-gray-400 inline-block text-xs tracking-wider mb-3">
+                  PREVIOUS ARTICLE
+                </div>
+                <div
+                  className={`text-${
+                    textColors[category.order % 5]
+                  } font-serif text-lg`}
+                >
+                  {articles[index - 1].node.title}
+                </div>
+              </Link>
+            )}
+          </div>
         </div>
       )}
+
+      <div className="max-w-screen-lg mx-auto mt-4 sm:mt-0 sm:px-8">
+        <Link
+          to="/articles/"
+          className="block py-6 px-4 bg-gray-100 text-center"
+        >
+          <span className="text-xs text-gray-400 tracking-wider">
+            ALL ARTICLES
+          </span>
+        </Link>
+      </div>
 
       <Footer />
     </div>

@@ -117,6 +117,15 @@ const Header: React.FC<Props> = ({ currentPage = '', category = '' }) => {
                   );
                 }
               )}
+              <li className="py-4 lg:py-0 lg:ml-8">
+                {currentPage === 'articles' ? (
+                  <span className="text-gray-200">All articles</span>
+                ) : (
+                  <Link to="/articles/" className="text-gray-400">
+                    All articles
+                  </Link>
+                )}
+              </li>
             </ul>
 
             <button

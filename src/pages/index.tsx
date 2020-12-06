@@ -118,6 +118,14 @@ const Index: React.FC = () => {
             );
           })}
         </ul>
+        <div className="mt-8 text-center">
+          <Link
+            to="/articles/"
+            className="text-xs tracking-wider border-b border-gray-600"
+          >
+            ALL ARTICLES
+          </Link>
+        </div>
       </section>
 
       <section className="bg-green-100 pt-10 sm:pt-16 pb-20 px-4 sm:px-8">
