@@ -73,11 +73,7 @@ type dataProps = {
 
 const Blog: React.FC<dataProps> = ({ data, pageContext }) => {
   return (
-    <Layout
-      title={pageContext.name}
-      colorIndex={pageContext.order % 5}
-      currentPage={pageContext.slug}
-    >
+    <Layout title={pageContext.name} colorIndex={pageContext.order % 5}>
       <ul>
         {data.allContentfulArticle.edges.map((edge: edgeProps) => {
           return (

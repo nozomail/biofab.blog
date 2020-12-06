@@ -112,7 +112,7 @@ const Article: React.FC<dataProps> = ({ data }) => {
   return (
     <div>
       <div className="pt-4 pb-8 px-4 sm:px-8">
-        <Header category={category.slug} />
+        <Header />
         <div className="sm:text-center mt-8 mb-4">
           <h1
             className={`max-w-screen-lg mx-auto text-2xl sm:text-4xl leading-normal font-serif mb-4`}

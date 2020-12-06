@@ -3,11 +3,6 @@ import { useStaticQuery, graphql, Link } from 'gatsby';
 
 import { textColors } from '../utilities/constants/colors';
 
-type Props = {
-  currentPage?: string;
-  category?: string;
-};
-
 type categoryProps = {
   node: {
     id: string;
@@ -16,8 +11,10 @@ type categoryProps = {
   };
 };
 
-const Header: React.FC<Props> = ({ currentPage = '', category = '' }) => {
-  console.log(location);
+const Header: React.FC = () => {
+  const currentPath = location.pathname.slice(1, location.pathname.length - 1);
+  const dirLength = currentPath.split('/').length;
+  const firstDir = currentPath.split('/')[0];
 
   const { allContentfulCategory } = useStaticQuery(graphql`
     query {
@@ -55,7 +52,7 @@ const Header: React.FC<Props> = ({ currentPage = '', category = '' }) => {
                   <Link
                     to={`/${edge.node.slug}/`}
                     className={
-                      category === edge.node.slug
+                      dirLength >= 2 && firstDir === edge.node.slug
                         ? `text-${
                             textColors[index % 5]
                           } font-semibold border-b border-${
@@ -102,13 +99,13 @@ const Header: React.FC<Props> = ({ currentPage = '', category = '' }) => {
                 (edge: categoryProps, index: number) => {
                   return (
                     <li className="py-4 lg:py-0 lg:ml-8" key={edge.node.id}>
-                      {currentPage === edge.node.slug ? (
+                      {dirLength === 1 && firstDir === edge.node.slug ? (
                         <span className="text-gray-200">{edge.node.name}</span>
                       ) : (
                         <Link
                           to={`/${edge.node.slug}/`}
                           className={
-                            category === edge.node.slug
+                            firstDir === edge.node.slug
                               ? `text-${textColors[index % 5]} font-semibold`
                               : ''
                           }
@@ -121,7 +118,7 @@ const Header: React.FC<Props> = ({ currentPage = '', category = '' }) => {
                 }
               )}
               <li className="py-4 lg:py-0 lg:ml-8">
-                {currentPage === 'articles' ? (
+                {dirLength === 1 && firstDir === 'articles' ? (
                   <span className="text-gray-200">All</span>
                 ) : (
                   <Link to="/articles/" className="text-gray-400">

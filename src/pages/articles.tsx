@@ -61,7 +61,7 @@ const Blog: React.FC = () => {
   `);
 
   return (
-    <Layout title="All articles" colorIndex={3} currentPage="articles">
+    <Layout title="All articles" colorIndex={3}>
       <ul>
         {allContentfulArticle.edges.map((edge: edgeProps) => {
           return (
