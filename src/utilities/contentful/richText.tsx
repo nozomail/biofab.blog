@@ -96,7 +96,7 @@ export const options = {
       return (
         <Link
           to={`/${category.slug}/${slug}/`}
-          className="flex items-center border border-gray-100 pt-4 pb-2 px-4 sm:px-5 my-4 shadow-md"
+          className="flex items-center border border-gray-200 pt-4 pb-2 px-4 sm:px-5 my-4"
         >
           <Img
             fluid={mainImage.fluid}
@@ -141,5 +141,16 @@ export const options = {
         {children}
       </a>
     ),
+    [INLINES.EMBEDDED_ENTRY]: (node: Block | Inline): ReactNode => {
+      const { category, slug, title } = node.data.target;
+      return (
+        <Link
+          className="text-pink-400 border-b border-pink-400"
+          to={`/${category.slug}/${slug}`}
+        >
+          {title}
+        </Link>
+      );
+    },
   },
 };
