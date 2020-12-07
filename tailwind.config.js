@@ -2,6 +2,9 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    minHeight: {
+      main: 'calc(100vh - 40px)',
+    },
     extend: {
       fontFamily: {
         serif: ['Playfair Display', 'serif'],
