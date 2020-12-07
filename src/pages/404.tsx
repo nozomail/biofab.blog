@@ -7,7 +7,7 @@ import Footer from '../components/footer';
 
 const NotFoundPage: React.FC = () => (
   <div>
-    <div className="pt-4 min-h-main pb-8 px-4 sm:px-8">
+    <div className="min-h-main pt-4 pb-8 px-4 sm:px-8">
       <Header />
       <h1
         className={`max-w-screen-lg mx-auto text-2xl sm:text-5xl leading-normal font-serif text-center my-20`}
