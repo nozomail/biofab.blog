@@ -2,11 +2,13 @@ import React from 'react';
 
 import { Link } from 'gatsby';
 
+import SEO from '../components/seo';
 import Header from '../components/header';
 import Footer from '../components/footer';
 
 const NotFoundPage: React.FC = () => (
   <div>
+    <SEO title="404" />
     <div className="min-h-main pt-4 pb-8 px-4 sm:px-8">
       <Header />
       <h1

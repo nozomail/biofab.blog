@@ -8,6 +8,7 @@ import {
 } from 'gatsby-source-contentful/rich-text';
 import { options } from '../utilities/contentful/richText';
 
+import SEO from '../components/seo';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Tag from '../components/tag';
@@ -152,6 +153,7 @@ const Article: React.FC<dataProps> = ({ data }) => {
 
   return (
     <div>
+      <SEO title={title} isArticle />
       <div className="min-h-main">
         <div className="pt-4 pb-8 px-4 sm:px-8">
           <Header />

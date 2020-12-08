@@ -5,6 +5,11 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: `Biofab.blog`,
+    titleTemplate: '%s | Biofab.blog',
+    description: 'Unbiased Report on biofabrication for beginners to advanced',
+    url: 'https://www.biofab.blog',
+    image: '/images/sample.jpg',
+    twitterUsername: '@biofab_blog',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

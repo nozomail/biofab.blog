@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 import ArticleListItem from '../components/articleListItem';
 
 export const query = graphql`
@@ -73,6 +74,7 @@ type dataProps = {
 const Blog: React.FC<dataProps> = ({ data, pageContext }) => {
   return (
     <Layout title={pageContext.name} colorIndex={3}>
+      <SEO title={pageContext.name} />
       <ul>
         {data.allContentfulArticle.edges.map((edge: edgeProps) => {
           return (

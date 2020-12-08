@@ -3,6 +3,7 @@ import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 import axios from 'axios';
 
+import SEO from '../components/seo';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import CategoryList from '../components/categoryList';
@@ -79,6 +80,7 @@ const Index: React.FC = () => {
 
   return (
     <div>
+      <SEO title="Home" />
       <div className="bg-gray-100 pt-4 pb-8 px-4 sm:px-8">
         <Header />
         <div className="max-w-screen-lg mx-auto font-serif text-center sm:text-left pt-8 sm:pb-4">

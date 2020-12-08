@@ -3,6 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 import ArticleListItem from '../components/articleListItem';
 
 type edgeProps = {
@@ -62,6 +63,7 @@ const Blog: React.FC = () => {
 
   return (
     <Layout title="All articles" colorIndex={3}>
+      <SEO title="All articles" />
       <ul>
         {allContentfulArticle.edges.map((edge: edgeProps) => {
           return (
