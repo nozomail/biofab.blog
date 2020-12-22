@@ -1,6 +1,6 @@
 # Biofab.blog
 
-Repository for [Biofab.blog](https://quizzical-babbage-1fb3df.netlify.app) (To be officialy published soon.)
+Repository for [Biofab.blog](https://quizzical-babbage-1fb3df.netlify.app) (To be officially published soon.)
 
 ![Biofab.blog Screenshots](https://raw.githubusercontent.com/nozomail/biofab.blog/main/project-image.png)
 
