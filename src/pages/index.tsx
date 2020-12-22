@@ -9,7 +9,7 @@ import Footer from '../components/footer';
 import CategoryList from '../components/categoryList';
 
 import Twitter from '../images/twitter.svg';
-import LinkedIn from '../images/linkedIn.svg';
+import LinkedIn from '../images/linkedin.svg';
 
 type articleProps = {
   node: {
