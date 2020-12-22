@@ -13,15 +13,12 @@ type categoryProps = {
 
 const Header: React.FC = () => {
   const [pathArr, setPathArr] = useState<string[]>([]);
-  console.log(pathArr);
-
   useEffect(() => {
     const currentPath = location.pathname.slice(
       1,
       location.pathname.length - 1
     );
     setPathArr(currentPath.split('/'));
-    console.log('aaa');
   }, []);
 
   const { allContentfulCategory } = useStaticQuery(graphql`
