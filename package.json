@@ -1,9 +1,8 @@
 {
   "name": "biofab-blog",
   "private": true,
-  "description": "BioFab.blog website built with Gatsby and Contentful.",
+  "description": "Biofab.blog website built with Gatsby and Contentful.",
   "version": "0.1.0",
-  "author": "nozo",
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^14.1.2",
     "@contentful/rich-text-types": "^14.1.2",

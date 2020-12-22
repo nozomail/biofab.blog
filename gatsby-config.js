@@ -1,5 +1,5 @@
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: `.env`,
 });
 
 module.exports = {
@@ -25,12 +25,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Biofab.blog`,
+        short_name: `Biofab.blog`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#54ADB6`,
+        theme_color: `#54ADB6`,
         display: `minimal-ui`,
+        icon: `src/images/biofab-blog.png`,
       },
     },
     {

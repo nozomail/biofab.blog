@@ -26,7 +26,7 @@ export default function HTML(props) {
           zIndex: '100',
           transition: 'opacity 0.5s',
           opacity: '1',
-          pointerEvents: 'none',
+          pointerEvents: 'auto',
         }}
       ></div>
       <body {...props.bodyAttributes}>

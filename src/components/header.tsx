@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 
 import { textColors } from '../utilities/constants/colors';
@@ -12,9 +12,17 @@ type categoryProps = {
 };
 
 const Header: React.FC = () => {
-  const currentPath = location.pathname.slice(1, location.pathname.length - 1);
-  const dirLength = currentPath.split('/').length;
-  const firstDir = currentPath.split('/')[0];
+  const [pathArr, setPathArr] = useState<string[]>([]);
+  console.log(pathArr);
+
+  useEffect(() => {
+    const currentPath = location.pathname.slice(
+      1,
+      location.pathname.length - 1
+    );
+    setPathArr(currentPath.split('/'));
+    console.log('aaa');
+  }, []);
 
   const { allContentfulCategory } = useStaticQuery(graphql`
     query {
@@ -52,7 +60,7 @@ const Header: React.FC = () => {
                   <Link
                     to={`/${edge.node.slug}/`}
                     className={
-                      dirLength >= 2 && firstDir === edge.node.slug
+                      pathArr.length >= 2 && pathArr[0] === edge.node.slug
                         ? `text-${
                             textColors[index % 5]
                           } font-semibold border-b border-${
@@ -99,13 +107,13 @@ const Header: React.FC = () => {
                 (edge: categoryProps, index: number) => {
                   return (
                     <li className="py-4 lg:py-0 lg:ml-8" key={edge.node.id}>
-                      {dirLength === 1 && firstDir === edge.node.slug ? (
+                      {pathArr.length === 1 && pathArr[0] === edge.node.slug ? (
                         <span className="text-gray-200">{edge.node.name}</span>
                       ) : (
                         <Link
                           to={`/${edge.node.slug}/`}
                           className={
-                            firstDir === edge.node.slug
+                            pathArr[0] === edge.node.slug
                               ? `text-${textColors[index % 5]} font-semibold`
                               : ''
                           }
@@ -118,7 +126,7 @@ const Header: React.FC = () => {
                 }
               )}
               <li className="py-4 lg:py-0 lg:ml-8">
-                {dirLength === 1 && firstDir === 'articles' ? (
+                {pathArr.length === 1 && pathArr[0] === 'articles' ? (
                   <span className="text-gray-200">All</span>
                 ) : (
                   <Link to="/articles/" className="text-gray-400">
